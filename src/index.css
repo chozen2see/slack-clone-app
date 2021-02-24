@@ -1,3 +1,25 @@
+:root {
+  --default-theme-header-background: #350d36;
+  --default-theme-sidebar-background: #3f0e40;
+  --default-theme-workspace-border-bottom: #532753;
+  --default-theme-channel-item-text: rgb(188, 171, 188);
+
+  --default-theme-text: white;
+}
+
+:root .dark-mode {
+  /* --default-theme-header-background: #0d3634;
+  --default-theme-sidebar-background: #0e3d40;
+  --default-theme-workspace-border-bottom: #275153;
+  --default-theme-channel-item-text: rgb(171, 184, 188); */
+  --default-theme-header-background: #110d36;
+  --default-theme-sidebar-background: #0e0f40;
+  --default-theme-workspace-border-bottom: #273153;
+  --default-theme-channel-item-text: rgb(171, 172, 188);
+
+  --default-theme-text: white;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
