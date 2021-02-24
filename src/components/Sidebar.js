@@ -4,7 +4,7 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import AddIcon from '@material-ui/icons/Add';
 import { sidebarItemsData, channelData } from '../context/SidebarData';
 
-function Sidebar() {
+function Sidebar({ rooms }) {
 
   const changeTheme = () => {
     document.getElementById('root').classList.toggle("dark-mode");
@@ -46,10 +46,10 @@ function Sidebar() {
 
         <ChannelsList>
           {
-            channelData.map(channel => {
+            rooms.map(channel => {
               return (
-                <Channel>
-                  # { channel.name}
+                <Channel key={channel.id}>
+                  # { channel.name }
                 </Channel>
               )
             })
