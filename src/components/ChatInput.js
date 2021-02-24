@@ -7,7 +7,7 @@ function ChatInput() {
     <Container>
       <InputContainer>
         <form onSubmit="">
-          <input type="text" name="" id="" placeholder="Message here..." />
+          <input type="text" name="" id="messageInput" placeholder="Message here..." />
           <SendButton>
             <Send />
           </SendButton>
