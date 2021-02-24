@@ -2,12 +2,26 @@ import React from 'react';
 import styled from 'styled-components';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import AddIcon from '@material-ui/icons/Add';
-import { sidebarItemsData, channelData } from '../context/SidebarData';
+import { sidebarItemsData } from '../context/SidebarData';
+// import { sidebarItemsData, channelData } from '../context/SidebarData';
+import db from '../context/firebase';
 
 function Sidebar({ rooms }) {
 
   const changeTheme = () => {
     document.getElementById('root').classList.toggle("dark-mode");
+  }
+
+
+  // adds channel to firebase rooms collection
+  const addChannel = () => {
+    const promptName = prompt("Enter new channel name:");
+    if(promptName) {
+      db.collection('rooms').add({
+        name: promptName
+      })
+    }
+    console.log(promptName);
   }
 
   return (
@@ -24,9 +38,9 @@ function Sidebar({ rooms }) {
 
       <MainChannels>
         {
-          sidebarItemsData.map((item) => {
+          sidebarItemsData.map((item, idx) => {
             return (
-              <MainChannelItem>
+              <MainChannelItem key={idx}>
                 {item.icon}
                 {item.text}
               </MainChannelItem>
@@ -41,7 +55,7 @@ function Sidebar({ rooms }) {
           <div>
             Channels
             </div>
-          <AddIcon style={cursorPointer} />
+          <AddIcon style={cursorPointer} onClick={addChannel} />
         </NewChannelContainer>
 
         <ChannelsList>
