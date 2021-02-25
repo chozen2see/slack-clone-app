@@ -1,6 +1,8 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+
 
 // Components
 import Chat from './components/Chat';
@@ -8,7 +10,29 @@ import Login from './components/Login';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 
+// Firebase
+import db from './context/firebase';
+
 function App() {
+
+  const [ rooms, setRooms ] = useState([]);
+
+  const getChannels = () => {
+    // get the db collection - using real-time database (will refresh page when data added to firebase)
+    db.collection('rooms').onSnapshot((snapshot) => {
+      setRooms(snapshot.docs.map((doc) => {
+        return { id: doc.id, name: doc.data().name }
+      }))
+    })
+  }
+
+  // only call the function when component initialized
+  useEffect(() => {
+    getChannels();
+  }, [])
+ 
+  // console.log(rooms);
+
   return (
     <div className="App">
       <Router>
@@ -18,7 +42,7 @@ function App() {
           <Header />
 
           <Main>
-            <Sidebar />
+            <Sidebar rooms={rooms} />
 
             <Switch>
               <Route path="/room">
