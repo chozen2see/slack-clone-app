@@ -1,16 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 import SendIcon from '@material-ui/icons/Send';
+import MessageBar from './MessageBar';
 
 function ChatInput() {
   return (
     <Container>
       <InputContainer>
-        <form onSubmit="">
-          <input type="text" name="" id="messageInput" placeholder="Message here..." />
-          <SendButton>
-            <Send />
-          </SendButton>
+        <form>
+          <MessageInput>
+            <input type="text" name="" id="messageInput" placeholder="Message here..." />
+            <SendButton>
+              <Send />
+            </SendButton>            
+          </MessageInput>
+          <MessageBar />
         </form>
       </InputContainer>
     </Container>
@@ -29,20 +33,25 @@ const InputContainer = styled.div`
 
   form {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 42px;
-    padding-left: 10px;
+    flex-direction: column;
+  }
+`
 
-    input {
-      flex: 1;
-      border: none;
-      font-size: 13px;
-    }
+const MessageInput = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 42px;
+  padding-left: 10px;
 
-    input:focus {
-      outline: none;
-    }
+  input {
+    flex: 1;
+    border: none;
+    font-size: 13px;
+  }
+
+  input:focus {
+    outline: none;
   }
 `
 
