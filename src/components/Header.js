@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
-// import AccountBoxIcon from '@material-ui/icons/AccountBox';
 
-function Header() {
+function Header({ user, signOut }) {
+
   return (
     <Container>
       {/* Time | Search | Help */}
@@ -21,11 +21,11 @@ function Header() {
       {/* User and Profile Image */}
       <UserContainer>
         <Name>
-          Dvyne Dzyne
+          { user.name ? user.name : "No Username" }
         </Name>
-        <UserImage>
-          <img src="https://i.imgur.com/6VBx3io.png" alt="" />
-          {/* <AccountBoxIcon /> */}
+        <UserImage onClick={ signOut }>
+          <img src={ user.photo ? user.photo : "https://i.imgur.com/6VBx3io.png" } alt="" />
+          {/* <img src= alt="" /> */}
         </UserImage>
       </UserContainer>
     </Container>
@@ -95,6 +95,7 @@ const UserImage = styled.div`
   height: 28px;
   border: 2px solid var(--default-theme-text);
   border-radius: 3px;
+  cursor: pointer;
 
   img {
     width: 100%;

@@ -2,7 +2,7 @@ import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-
+import { auth, provider } from './context/firebase';
 
 // Components
 import Chat from './components/Chat';
@@ -15,7 +15,9 @@ import db from './context/firebase';
 
 function App() {
 
-  const [ rooms, setRooms ] = useState([]);
+  const [rooms, setRooms] = useState([]);
+  // user JSON.parse to convert local storage user string to obj
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
 
   const getChannels = () => {
     // get the db collection - using real-time database (will refresh page when data added to firebase)
@@ -30,33 +32,47 @@ function App() {
   useEffect(() => {
     getChannels();
   }, [])
- 
-  // console.log(rooms);
+
+  // sign out fn to pass down to header
+  const signOut = () => {
+    auth.signOut().then(() => {
+      localStorage.removeItem('user');
+      setUser(null);
+    })
+  }
+
 
   return (
     <div className="App">
       <Router>
         {/* using styled components for the Container, Main components */}
-        <Container>
 
-          <Header />
+        {!user ?
+          <Login setUser={setUser} />
+          :
 
-          <Main>
-            <Sidebar rooms={rooms} />
+          <Container>
 
-            <Switch>
-              <Route path="/room">
-                {/* this will be the chat room */}
-                <Chat />
-              </Route>
-              <Route path="/">
+            <Header user={ user } signOut={ signOut } />
+
+            <Main>
+              <Sidebar rooms={ rooms } />
+
+              <Switch>
+                <Route path="/room">
+                  {/* this will be the chat room */}
+                  <Chat />
+                </Route>
+
                 {/* home page will be the login page */}
+                {/* <Route path="/">
                 <Login />
-              </Route>
-            </Switch>
-          </Main>
+              </Route> */}
+              </Switch>
+            </Main>
 
-        </Container>
+          </Container>
+        }
 
       </Router>
 
